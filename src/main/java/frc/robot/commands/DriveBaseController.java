@@ -13,8 +13,7 @@ import frc.robot.Robot;
 
 public class DriveBaseController extends Command {
   public DriveBaseController() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.driveBase);
   }
 
   // Called just before this Command runs the first time
