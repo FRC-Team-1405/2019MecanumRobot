@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -18,32 +20,18 @@ import frc.robot.commands.DriveBaseController;
 /**
  * Add your docs here.
  */
-public class DriveBase extends Subsystem {
+public class DriveBaseSparkMax extends IDriveBase  {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  WPI_TalonSRX driveFrontLeft = new WPI_TalonSRX(RobotMap.driveFrontLeft);
-  WPI_TalonSRX driveFrontRight = new WPI_TalonSRX(RobotMap.driveFrontRight);
-  WPI_TalonSRX driveBackLeft = new WPI_TalonSRX(RobotMap.driveBackLeft);
-  WPI_TalonSRX driveBackRight = new WPI_TalonSRX(RobotMap.driveBackRight);
+  CANSparkMax driveFrontLeft = new CANSparkMax(RobotMap.driveFrontLeft, MotorType.kBrushless);
+  CANSparkMax driveFrontRight = new CANSparkMax(RobotMap.driveFrontRight, MotorType.kBrushless);
+  CANSparkMax driveBackLeft = new CANSparkMax(RobotMap.driveBackLeft, MotorType.kBrushless);
+  CANSparkMax driveBackRight = new CANSparkMax(RobotMap.driveBackRight, MotorType.kBrushless);
   MecanumDrive driveBase = new MecanumDrive(driveFrontLeft, driveBackLeft, driveFrontRight, driveBackRight);
 
-  public DriveBase(){
-    driveFrontLeft.configNeutralDeadband(0.04, 10);
-    driveFrontRight.configNeutralDeadband(0.04, 10);
-    driveBackLeft.configNeutralDeadband(0.04, 10);
-    driveBackRight.configNeutralDeadband(0.04, 10);
-
-    driveFrontLeft.set(ControlMode.PercentOutput, 0);
-    driveFrontRight.set(ControlMode.PercentOutput, 0);
-    driveBackLeft.set(ControlMode.PercentOutput, 0);
-    driveBackRight.set(ControlMode.PercentOutput, 0);
-
-    driveFrontLeft.setName("Front Left");
-    driveFrontRight.setName("Front Right");
-    driveBackLeft.setName("Back Left");
-    driveBackRight.setName("Back Right");
-
+  public DriveBaseSparkMax(){
+    driveBase.setName("Drive_Base_SparkMax");
 //    driveBase.setDeadband(0.0);
     this.addChild(driveBase);
 
