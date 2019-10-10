@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.I2C;
 public class GyroSensor {
     private static GyroSensor single_instance = null;
     private GyroSensor(){
+        getGyroAngle();
     }
     public static GyroSensor getInstance(){
         if(single_instance == null){
@@ -27,7 +29,12 @@ public class GyroSensor {
     private AHRS gyro = new AHRS(I2C.Port.kMXP);
 
     public double getGyroAngle(){
-        return Math.IEEEremainder(gyro.getAngle(), 360.0);
+        double angle = Math.IEEEremainder(gyro.getAngle(), 360.0);
+        if (angle < 0)
+            angle += 360;
+        SmartDashboard.putNumber("gyroAngle", angle);
+        return 360.0 - angle;
+
     }
     
     public void resetGyro(){

@@ -9,33 +9,46 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  public OI() {
+    SmartDashboard.putBoolean("useFieldBased", useFieldBased);
+   
+  }
   public XboxController pilot = new XboxController(RobotMap.pilot);
   public XboxController operator = new XboxController(RobotMap.operator);
 
   public double driveX(){
-    return pilot.getX(Hand.kLeft);
+    double posX = pilot.getX(Hand.kLeft) ;
+    return (Math.abs(posX) < 0.2) ? 0 : posX;
   }
 
   public double driveY(){
-    return pilot.getY(Hand.kLeft);
+    double posY = pilot.getY(Hand.kLeft) ;
+    return (Math.abs(posY) < 0.2) ? 0 : posY;
   }
 
   public double driveRotation(){
-    return pilot.getX(Hand.kRight);
+    double rot = 0-pilot.getX(Hand.kRight) ;
+    return (Math.abs(rot) < 0.2) ? 0 : rot;
   }
 
   private boolean useFieldBased = true;
   public boolean useFieldBased(){
     if (pilot.getAButtonPressed()) {
       useFieldBased = !useFieldBased;
+      SmartDashboard.putBoolean("useFieldBased", useFieldBased);
     }
     return useFieldBased;
+  }
+
+  public boolean resetGyro(){
+    return pilot.getYButtonPressed();
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

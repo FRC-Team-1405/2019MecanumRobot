@@ -25,16 +25,23 @@ public class DriveBaseController extends Command {
   @Override
   protected void execute() {
     if(Robot.m_oi.useFieldBased()){
-      Robot.driveBase.drive(Robot.m_oi.driveY(), Robot.m_oi.driveX(), Robot.m_oi.driveRotation(), GyroSensor.getInstance().getGyroAngle());
+      Robot.driveBase.drive( Robot.m_oi.driveY(), 
+                                Robot.m_oi.driveX(), 
+                                Robot.m_oi.driveRotation(), 
+                                GyroSensor.getInstance().getGyroAngle());
     }else{
       Robot.driveBase.drive(Robot.m_oi.driveY(), Robot.m_oi.driveX(), Robot.m_oi.driveRotation(), 0.0);
+    }
+
+    if (Robot.m_oi.resetGyro()){
+      GyroSensor.getInstance().resetGyro();
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return false;  
   }
 
   // Called once after isFinished returns true
