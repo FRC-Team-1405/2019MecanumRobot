@@ -27,7 +27,11 @@ public class RobotMap {
   public final static int driveFrontLeft  = 1;
   public final static int driveFrontRight = 2;
   public final static int driveBackLeft   = 3;
-  public final static int driveBackRight  = 4;
+  public final static int driveBackRight  = 4; 
+  public final static int frontLeftClimbTalon = 5; 
+  public final static int frontRightClimbTalon = 6;
+  public final static int backLeftClimbTalon = 7; 
+  public final static int backRightClimbTalon = 8; 
   public final static int pilot = 0; 
   public final static int operator = 1;
 
