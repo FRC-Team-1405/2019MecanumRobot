@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveBaseTalonSRX;
 import frc.robot.commands.ClimbController;
 import frc.robot.subsystems.DriveBaseSparkMax; 
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Claw;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,7 +32,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static IDriveBase driveBase; 
   public static Climber climber; 
-  
+  public static Claw claw; 
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
