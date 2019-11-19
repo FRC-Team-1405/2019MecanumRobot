@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -33,11 +34,33 @@ import frc.robot.lib.ExtendedTalon;
 public class Climber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands. 
-  private WPI_TalonSRX frontLeftClimbTalon = new WPI_TalonSRX(RobotMap.frontLeftClimbTalon);  
-  private WPI_TalonSRX frontRightClimbTalon = new WPI_TalonSRX(RobotMap.frontRightClimbTalon); 
-  private WPI_TalonSRX backLeftClimbTalon = new WPI_TalonSRX(RobotMap.backLeftClimbTalon); 
-  private WPI_TalonSRX backRightClimbTalon = new WPI_TalonSRX(RobotMap.backRightClimbTalon); 
+  private static WPI_TalonSRX frontLeftClimbTalon = new WPI_TalonSRX(RobotMap.frontLeftClimbTalon);  
+  private static WPI_TalonSRX frontRightClimbTalon = new WPI_TalonSRX(RobotMap.frontRightClimbTalon); 
+  private static WPI_TalonSRX backLeftClimbTalon = new WPI_TalonSRX(RobotMap.backLeftClimbTalon); 
+  private static WPI_TalonSRX backRightClimbTalon = new WPI_TalonSRX(RobotMap.backRightClimbTalon); 
+
+  void setFrontLeftPosition(double percentExtended){ 
+      frontLeftClimbTalon.setSelectedSensorPosition(10);  
+  } 
+
+  void setFrontRightPosition(double percentExtended){ 
+    
+  } 
+
+  void setBackLeftPosition(double percentExtended){ 
+    
+  } 
+  void setBackRightPosition(double percentExtended){
   
+  }  
+
+  public double getFrontLeftPosition(){
+    return frontLeftClimbTalon.getSelectedSensorPosition(0);
+   }
+
+   public double getFrontRightPosition(){
+    return frontRightClimbTalon.getSelectedSensorPosition(0);
+   }
   
   
   public Climber() { 
@@ -82,13 +105,47 @@ public class Climber extends Subsystem {
     setDefaultCommand(new ClimbController());   
   }  
 
-  public void extendFrontLegs(){ 
-    
+  public void extendFrontLegsLevelTwo(){ 
+    setFrontLeftPosition(10);
   } 
+
+  public void extendFrontLegsLevelThree() {  
+    
+  }
 
   public void retractFrontLegs(){ 
   
+  } 
+
+  public void extendBackLegsLevelTwo(){ 
+     
+  } 
+  
+  public void extendBackLegsLevelThree(){ 
+       
+  } 
+  
+  public void retractBackLegs(){ 
+    
+  }  
+
+  public void extendLeftLegsLevelTwo(){ 
+    
+  } 
+
+  public void extendLeftLegsLevelThree(){ 
+    
+  } 
+
+  public void extendRightLegsLevelTwo(){ 
+    
+  } 
+
+  public void extendRightLegsLevelThree(){ 
+     
   }
+
+  
 
   public void configureTalon(TalonSRX talonSRX){   
     ExtendedTalon.configCurrentLimit(talonSRX);    

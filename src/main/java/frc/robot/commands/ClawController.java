@@ -7,26 +7,29 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command; 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Claw;
+import frc.robot.OI;
 
-public class ClimbController extends Command {
-  public ClimbController() {
+public class ClawController extends Command {
+  public ClawController() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis); 
-    requires(Robot.climber);
+    requires(Robot.claw);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { 
-    
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
+    if(Robot.m_oi.openClaw()) { 
+      Robot.claw.openClaw(); 
+    }
     
   }
 

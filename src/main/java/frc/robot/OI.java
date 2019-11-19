@@ -49,6 +49,22 @@ public class OI {
 
   public boolean resetGyro(){
     return pilot.getYButtonPressed();
+  } 
+
+  public boolean openClaw(){ 
+    return pilot.getAButtonPressed(); 
+  } 
+
+  public boolean closeClaw(){ 
+    return pilot.getBButton(); 
+  } 
+
+  public boolean intakeGamePiece(){ 
+    return pilot.getBumper(Hand.kRight); 
+  } 
+
+  public boolean deployGamePiece(){ 
+    return pilot.getBumper(Hand.kLeft); 
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
