@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * 
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
@@ -45,6 +48,29 @@ public class OI {
       SmartDashboard.putBoolean("useFieldBased", useFieldBased);
     }
     return useFieldBased;
+  }  
+
+  public final static int POSITION_FRONT    = 0;
+  public final static int POSITION_BACK     = 1;
+  public final static int POSITION_MAX      = 2;
+  public int position = POSITION_FRONT;
+  public void readPosition(){
+    if (operator.getAButtonPressed()){
+      position = (position++ % POSITION_MAX);
+      SmartDashboard.putNumber("Arm_Position", position); 
+    }
+  } 
+
+  public double getElevationPosition(){ 
+    return operator.getX(Hand.kLeft);
+  }
+  
+  public double getPivotPosition() { 
+    return operator.getY(Hand.kRight); 
+}
+
+  public double getWristPosition() { 
+    return operator.getX(Hand.kLeft);
   }
 
   public boolean resetGyro(){
@@ -52,7 +78,7 @@ public class OI {
   } 
 
   public boolean openClaw(){ 
-    return pilot.getAButtonPressed(); 
+    return pilot.getAButton(); 
   } 
 
   public boolean closeClaw(){ 

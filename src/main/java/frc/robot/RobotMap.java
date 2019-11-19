@@ -32,7 +32,9 @@ public class RobotMap {
   public final static int frontRightClimbTalon = 6;
   public final static int backLeftClimbTalon = 7; 
   public final static int backRightClimbTalon = 8; 
-  public final static int armTalon = 9; 
+  public final static int armElevationTalon = 9; 
+  public final static int armPivotTalon = 10; 
+  public final static int armWristTalon = 11; 
   public final static int intakeWheelLeft = 14; 
   public final static int intakeWheelRight = 15; 
   public final static int pilot = 0; 

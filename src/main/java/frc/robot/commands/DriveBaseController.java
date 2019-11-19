@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.GyroSensor;
 import frc.robot.Robot;
 
-public class DriveBaseController extends Command {
+public class DriveBaseController extends Command {   
   public DriveBaseController() {
-    requires(Robot.driveBase);
+    requires(Robot.driveBase);  
   }
 
   // Called just before this Command runs the first time

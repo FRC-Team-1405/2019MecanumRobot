@@ -7,14 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command; 
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; 
+import frc.robot.Robot;                        
 
 public class ArmController extends Command {
   public ArmController() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis); 
-    requires(Robot.arm);
+    requires(Robot.arm);   
   }
 
   // Called just before this Command runs the first time
@@ -25,12 +26,13 @@ public class ArmController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    SmartDashboard.putNumber("Pivot Positon", Robot.arm.getArmPivotPostion()); 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return false;   
   }
 
   // Called once after isFinished returns true

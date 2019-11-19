@@ -27,8 +27,11 @@ public class ClawController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    if(Robot.m_oi.openClaw()) { 
+    if(Robot.m_oi.openClaw() == true) { 
       Robot.claw.openClaw(); 
+    } 
+    else if(Robot.m_oi.closeClaw() == true){ 
+      Robot.claw.closeClaw();
     }
     
   }

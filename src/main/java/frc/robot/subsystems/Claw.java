@@ -24,7 +24,9 @@ public class Claw extends Subsystem {
   private static WPI_TalonSRX intakeWheelLeft = new WPI_TalonSRX(RobotMap.intakeWheelLeft); 
   private static WPI_TalonSRX intakeWheelRight = new WPI_TalonSRX(RobotMap.intakeWheelRight); 
 
+public Claw(){ 
 
+}
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -32,13 +34,13 @@ public class Claw extends Subsystem {
     setDefaultCommand(new ClawController());
   } 
   public void openClaw(){ 
-    rightClawServo.set(0); 
-    leftClawServo.set(0); 
+    rightClawServo.setAngle(90); 
+    leftClawServo.setAngle(90); 
   } 
 
   public void closeClaw(){ 
-    rightClawServo.set(5); 
-    leftClawServo.set(5); 
+    rightClawServo.setAngle(-10); 
+    leftClawServo.setAngle(-10);  
   } 
 
   public void intakeGamePiece(){ 

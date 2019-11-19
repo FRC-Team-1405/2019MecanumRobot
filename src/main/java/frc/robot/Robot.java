@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IDriveBase;
 import frc.robot.subsystems.DriveBaseTalonSRX;
+import frc.robot.commands.ClawController;
 import frc.robot.commands.ClimbController;
 import frc.robot.subsystems.DriveBaseSparkMax; 
 import frc.robot.subsystems.Climber; 
@@ -33,17 +34,16 @@ public class Robot extends TimedRobot {
 
   public static OI m_oi;
   public static IDriveBase driveBase; 
-<<<<<<< HEAD
   public static Climber climber;  
   public static Arm arm; 
-  
-=======
-  public static Climber climber; 
   public static Claw claw; 
->>>>>>> c7e7cdaf217ca2b18c6737051f8f4b7f1961a157
-
+  
+  public static Command clawController;
+  
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  
 
   /**
    * This function is run when the robot is first started up and should be
@@ -51,7 +51,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
+    m_oi = new OI(); 
+    claw = new Claw(); 
+    arm = new Arm(); 
+    
 
     if (TALON_DRIVE_BASE) {
       driveBase = new DriveBaseTalonSRX();
@@ -59,7 +62,14 @@ public class Robot extends TimedRobot {
       driveBase = new DriveBaseSparkMax();
     }
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    SmartDashboard.putData("Auto mode", m_chooser); 
+
+    clawController = new ClawController();
+
+    
+  
+
+    
   }
 
   /**
