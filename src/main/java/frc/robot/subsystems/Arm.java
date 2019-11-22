@@ -112,7 +112,7 @@ private void configureTalon(TalonSRX talonSRX) {
 private void setArmPosition(int index){
   armElevationTalon.set(ControlMode.Position, positions[index].elevation);
   armPivotTalon.set(ControlMode.Position, positions[index].pivot);
-  armWristTalon.set(ControlMode.Position, positions[index].wrist;
+  armWristTalon.set(ControlMode.Position, positions[index].wrist);
 };
 
 public void frontLow(){
