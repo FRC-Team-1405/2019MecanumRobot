@@ -29,11 +29,45 @@ import frc.robot.commands.ArmController;
  * Add your docs here.
  */
 public class Arm extends Subsystem {
+
+  private class ArmPosition {
+    ArmPosition(String shuffleboardKey, double elevation, double pivot, double wrist){
+      this.shuffleboardKey = shuffleboardKey;
+      this.elevation = elevation;
+      this.pivot = pivot;
+      this.wrist = wrist;
+    }
+    public String shuffleboardKey;
+    public double elevation;
+    public double pivot;
+    public double wrist;
+
+  public void save(){
+    SmartDashboard.putNumber(shuffleboardKey+"Elevation", elevation);
+    SmartDashboard.putNumber(shuffleboardKey+"Pivot", pivot);
+    SmartDashboard.putNumber(shuffleboardKey+"Wrist", wrist);
+  }
+  public void load(){
+    elevation = SmartDashboard.getNumber(shuffleboardKey+"Elevation", elevation);
+    elevation = SmartDashboard.getNumber(shuffleboardKey+"Pivot", pivot);
+    elevation = SmartDashboard.getNumber(shuffleboardKey+"Wrist", wrist);
+  }
+}
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands. 
 private WPI_TalonSRX armElevationTalon = new WPI_TalonSRX(RobotMap.armElevationTalon); 
 private WPI_TalonSRX armPivotTalon = new WPI_TalonSRX(RobotMap.armPivotTalon); 
 private WPI_TalonSRX armWristTalon = new WPI_TalonSRX(RobotMap.armWristTalon); 
+
+private ArmPosition[] positions = new ArmPosition[] {
+                                    new ArmPosition("FrontLow", 0, 0, 0),
+                                    new ArmPosition("FrontMid", 0, 0, 0),
+                                    new ArmPosition("FrontHigh", 0, 0, 0),
+                                    new ArmPosition("BackLow", 0, 0, 0),
+                                    new ArmPosition("BackMid", 0, 0, 0),
+                                    new ArmPosition("BackHigh", 0, 0, 0),
+                                  };
 
 public Arm() { 
   
@@ -44,6 +78,10 @@ public Arm() {
   armElevationTalon.setName("Arm Elevation Talon");
   this.addChild(armElevationTalon); 
   LiveWindow.add(armElevationTalon); 
+
+  for(ArmPosition position : positions) {
+    position.save();
+  }
 
   configureTalon(armPivotTalon); 
   //armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
@@ -69,7 +107,33 @@ public int getArmPivotPostion(){
 private void configureTalon(TalonSRX talonSRX) { 
   ExtendedTalon.configCurrentLimit(talonSRX);    
   talonSRX.configNeutralDeadband(0.001, 10);   
-   } 
+} 
+
+private void setArmPosition(int index){
+  armElevationTalon.set(ControlMode.Position, positions[index].elevation);
+  armPivotTalon.set(ControlMode.Position, positions[index].pivot);
+  armWristTalon.set(ControlMode.Position, positions[index].wrist;
+};
+
+public void frontLow(){
+  setArmPosition(0);
+};
+public void frontMid(){
+  setArmPosition(1);
+};
+public void frontHigh(){
+  setArmPosition(2);
+};
+public void backLow(){
+  setArmPosition(3);
+};
+public void backMid(){
+  setArmPosition(4);
+};
+public void backHigh(){
+  setArmPosition(5);
+};
+
 
 @Override
   public void initDefaultCommand() {

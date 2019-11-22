@@ -61,6 +61,18 @@ public class OI {
     }
   } 
 
+  public final static int ELEVATION_LOW = 0;
+  public final static int ELEVATION_MID = 1;
+  public final static int ELEVATION_HIGH = 2;
+  public final static int ELEVATION_MAX = 3;
+  public int elevation = ELEVATION_LOW;
+  public void readElevation(){
+    if (operator.getBButtonPressed()){
+      elevation = (elevation++ % ELEVATION_MAX);
+      SmartDashboard.putNumber("Arm Elevation", elevation);
+    }
+  }
+
   public double getElevationPosition(){ 
     return operator.getX(Hand.kLeft);
   }
