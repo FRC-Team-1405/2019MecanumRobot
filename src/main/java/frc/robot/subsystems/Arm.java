@@ -12,7 +12,8 @@ import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;    
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX; 
 import edu.wpi.first.wpilibj.Preferences;             
 import edu.wpi.first.wpilibj.command.Subsystem;       
@@ -69,6 +70,23 @@ private ArmPosition[] positions = new ArmPosition[] {
                                     new ArmPosition("BackHigh", 0, 0, 0),
                                   };
 
+public class Range {
+  private int min;
+  private int max; 
+  public Range(int min, int max) {
+    this.min = min;
+    this.max = max;
+  }
+  public double toPercent(int position){
+    return (position-min)/(max-min);
+  }
+  public int toPosition(double percent){
+    return (int)((max-min)*percent+min);
+  } 
+}
+
+public Range wristRange;
+
 public Arm() { 
   
   configureTalon(armElevationTalon);
@@ -84,10 +102,10 @@ public Arm() {
   }
 
   configureTalon(armPivotTalon); 
-  //armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
+  armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
   int pos = armPivotTalon.getSensorCollection().getPulseWidthPosition(); 
   armPivotTalon.getSensorCollection().setQuadraturePosition(pos, 0); 
-  //armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); 
+  armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); 
   System.out.println(pos); 
   armPivotTalon.setSensorPhase(true); 
 
@@ -98,6 +116,10 @@ public Arm() {
   armWristTalon.setName("Arm Wrist Talon"); 
   this.addChild(armWristTalon); 
   LiveWindow.add(armWristTalon); 
+
+  TalonSRXConfiguration allConfigs = new TalonSRXConfiguration();
+  armWristTalon.getAllConfigs(allConfigs, 0);
+  wristRange = new Range(allConfigs.reverseSoftLimitThreshold, allConfigs.forwardSoftLimitThreshold);
 }
 
 public int getArmPivotPostion(){

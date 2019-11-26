@@ -104,6 +104,30 @@ public class OI {
   public boolean deployGamePiece(){ 
     return pilot.getBumper(Hand.kLeft); 
   }
+
+  public boolean getArmFrontLow(){
+    return false;
+  }
+
+  public boolean getArmFrontMid(){
+    return false;
+  }
+
+  public boolean getArmFrontHigh(){
+    return false;
+  }
+
+  public boolean getArmBackLow(){
+    return false;
+  }
+
+  public boolean getArmBackMid(){
+    return false;
+  }
+
+  public boolean getArmBackHigh(){
+    return false;
+  }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
