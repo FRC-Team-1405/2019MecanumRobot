@@ -27,19 +27,22 @@ public class ArmController extends Command {
   @Override
   protected void execute() {
     SmartDashboard.putNumber("Pivot Positon", Robot.arm.getArmPivotPostion()); 
-    if(Robot.m_oi.getArmFrontLow()){
-      Robot.arm.frontLow();
-    } else if(Robot.m_oi.getArmFrontMid()){
-      Robot.arm.frontMid();
-    } else if(Robot.m_oi.getArmFrontHigh()){
-      Robot.arm.frontHigh();
-    } else if(Robot.m_oi.getArmBackLow()){
-      Robot.arm.backLow();
-    } else if(Robot.m_oi.getArmBackMid()){
-      Robot.arm.backMid();
-    } else if(Robot.m_oi.getArmBackHigh()){
-      Robot.arm.backHigh();
-    }
+    Robot.m_oi.readPosition();
+    Robot.m_oi.readElevation();
+    // if(Robot.m_oi.position == Robot.m_oi.POSITION_FRONT && Robot.m_oi.elevation == Robot.m_oi.ELEVATION_LOW){
+    //   Robot.arm.frontLow();
+    // }else if(Robot.m_oi.position == Robot.m_oi.POSITION_FRONT && Robot.m_oi.elevation == Robot.m_oi.ELEVATION_MID){
+    //   Robot.arm.frontMid();
+    // }else if(Robot.m_oi.position == Robot.m_oi.POSITION_FRONT && Robot.m_oi.elevation == Robot.m_oi.ELEVATION_HIGH){
+    //   Robot.arm.frontHigh();
+    // }else if(Robot.m_oi.position == Robot.m_oi.POSITION_BACK && Robot.m_oi.elevation == Robot.m_oi.ELEVATION_LOW){
+    //   Robot.arm.backLow();
+    // }else if(Robot.m_oi.position == Robot.m_oi.POSITION_BACK && Robot.m_oi.elevation == Robot.m_oi.ELEVATION_MID){
+    //   Robot.arm.backMid();
+    // }else{
+    //   Robot.arm.backHigh();
+    // }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

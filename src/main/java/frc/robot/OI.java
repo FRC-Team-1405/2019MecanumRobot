@@ -21,7 +21,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
   public OI() {
     SmartDashboard.putBoolean("useFieldBased", useFieldBased);
-   
+    displayElevation();
+    displayPosition();
   }
   public XboxController pilot = new XboxController(RobotMap.pilot);
   public XboxController operator = new XboxController(RobotMap.operator);
@@ -56,11 +57,15 @@ public class OI {
   public int position = POSITION_FRONT;
   public void readPosition(){
     if (operator.getAButtonPressed()){
-      position = (position++ % POSITION_MAX);
-      SmartDashboard.putNumber("Arm_Position", position); 
+      position = (position+1) % POSITION_MAX;
+      displayPosition();
     }
   } 
 
+  private void displayPosition(){
+    SmartDashboard.putBoolean("Arm/Position/Front", position == POSITION_FRONT);
+    SmartDashboard.putBoolean("Arm/Position/Back", position == POSITION_BACK);
+  }
   public final static int ELEVATION_LOW = 0;
   public final static int ELEVATION_MID = 1;
   public final static int ELEVATION_HIGH = 2;
@@ -68,11 +73,17 @@ public class OI {
   public int elevation = ELEVATION_LOW;
   public void readElevation(){
     if (operator.getBButtonPressed()){
-      elevation = (elevation++ % ELEVATION_MAX);
-      SmartDashboard.putNumber("Arm Elevation", elevation);
+      elevation = (elevation+1) % ELEVATION_MAX;
+      displayElevation();
     }
   }
 
+  private void displayElevation() {
+    SmartDashboard.putBoolean("Arm/Elevation/Low", elevation == ELEVATION_LOW);
+    SmartDashboard.putBoolean("Arm/Elevation/Mid", elevation == ELEVATION_MID);
+    SmartDashboard.putBoolean("Arm/Elevation/High", elevation == ELEVATION_HIGH);
+
+  }
   public double getElevationPosition(){ 
     return operator.getX(Hand.kLeft);
   }
@@ -105,29 +116,7 @@ public class OI {
     return pilot.getBumper(Hand.kLeft); 
   }
 
-  public boolean getArmFrontLow(){
-    return false;
-  }
-
-  public boolean getArmFrontMid(){
-    return false;
-  }
-
-  public boolean getArmFrontHigh(){
-    return false;
-  }
-
-  public boolean getArmBackLow(){
-    return false;
-  }
-
-  public boolean getArmBackMid(){
-    return false;
-  }
-
-  public boolean getArmBackHigh(){
-    return false;
-  }
+  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
