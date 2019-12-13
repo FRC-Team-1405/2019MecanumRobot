@@ -27,6 +27,9 @@ public class ArmController extends Command {
   @Override
   protected void execute() {
     SmartDashboard.putNumber("Pivot Positon", Robot.arm.getArmPivotPostion()); 
+    
+    Robot.m_oi.readPivot();
+    Robot.m_oi.readElevation(); 
   }
 
   // Make this return true when this Command no longer needs to run execute()

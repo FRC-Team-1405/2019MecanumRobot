@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.GyroSensor;
 import frc.robot.Robot;
 
@@ -25,9 +26,9 @@ public class DriveBaseController extends Command {
   @Override
   protected void execute() {
     if(Robot.m_oi.useFieldBased()){
-      Robot.driveBase.drive( Robot.m_oi.driveY(), 
-                                Robot.m_oi.driveX(), 
-                                Robot.m_oi.driveRotation(), 
+      Robot.driveBase.drive( Robot.m_oi.driveY()*.5, 
+                                Robot.m_oi.driveX()*.5, 
+                                Robot.m_oi.driveRotation()*.4, 
                                 GyroSensor.getInstance().getGyroAngle());
     }else{
       Robot.driveBase.drive(Robot.m_oi.driveY(), Robot.m_oi.driveX(), Robot.m_oi.driveRotation(), 0.0);

@@ -83,18 +83,24 @@ public Arm() {
     position.save();
   }
 
+  int absolutePosition = 0;
   configureTalon(armPivotTalon); 
-  //armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
-  int pos = armPivotTalon.getSensorCollection().getPulseWidthPosition(); 
-  armPivotTalon.getSensorCollection().setQuadraturePosition(pos, 0); 
-  //armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); 
-  System.out.println(pos); 
+  armPivotTalon.configNeutralDeadband(0.001, 10); 
+  armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
+  absolutePosition = armPivotTalon.getSensorCollection().getPulseWidthPosition(); 
+  armPivotTalon.getSensorCollection().setQuadraturePosition(absolutePosition, 0); 
+  armPivotTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); 
   armPivotTalon.setSensorPhase(true); 
+  armPivotTalon.setName("Arm Pivot Talon"); 
+  this.addChild(armPivotTalon); 
+  LiveWindow.add(armPivotTalon); 
 
   configureTalon(armWristTalon); 
-  armWristTalon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 10); 
   armWristTalon.configNeutralDeadband(0.001, 10); 
-  armWristTalon.set(ControlMode.PercentOutput, 0); 
+  armWristTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute); 
+  absolutePosition = armWristTalon.getSensorCollection().getPulseWidthPosition(); 
+  armWristTalon.getSensorCollection().setQuadraturePosition(absolutePosition, 0); 
+  armWristTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative); 
   armWristTalon.setName("Arm Wrist Talon"); 
   this.addChild(armWristTalon); 
   LiveWindow.add(armWristTalon); 
@@ -132,7 +138,16 @@ public void backMid(){
 };
 public void backHigh(){
   setArmPosition(5);
-};
+}; 
+
+public void setElevatorPosition(double position){ 
+  final double min = -4600; 
+  final double max = -3600; 
+
+  double absolutePostion = ((position*max-min)+min); 
+  System.out.println(absolutePostion);
+  //armElevationTalon.set(ControlMode.MotionMagic, absolutePostion);
+}
 
 
 @Override

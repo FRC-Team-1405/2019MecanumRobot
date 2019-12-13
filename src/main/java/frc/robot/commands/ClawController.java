@@ -13,6 +13,8 @@ import frc.robot.subsystems.Claw;
 import frc.robot.OI;
 
 public class ClawController extends Command {
+  boolean isIntaking = false;
+  
   public ClawController() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis); 
@@ -21,17 +23,33 @@ public class ClawController extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  protected void initialize() { 
+    Robot.claw.neutral();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    if(Robot.m_oi.openClaw() == true) { 
+    if(Robot.m_oi.openClaw()) { 
       Robot.claw.openClaw(); 
     } 
-    else if(Robot.m_oi.closeClaw() == true){ 
+    else if(Robot.m_oi.closeClaw()){ 
       Robot.claw.closeClaw();
+    } 
+
+    if(Robot.m_oi.intakeGamePiece()){ 
+      Robot.claw.intakeGamePiece(); 
+      
+    } else if(Robot.m_oi.stopGamePieceIntake()) { 
+      Robot.claw.stopIntakes();
+    }
+
+     
+      if(Robot.m_oi.deployGamePiece()){ 
+        Robot.claw.deployGamePiece(); 
+    } else if(Robot.m_oi.stopGamePieceRelease()){ 
+      Robot.claw.stopIntakes();
     }
     
   }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.IDriveBase;
 import frc.robot.subsystems.DriveBaseTalonSRX;
+import frc.robot.commands.ArmController;
 import frc.robot.commands.ClawController;
 import frc.robot.commands.ClimbController;
 import frc.robot.subsystems.DriveBaseSparkMax; 
@@ -39,7 +40,7 @@ public class Robot extends TimedRobot {
   public static Claw claw; 
   
   public static Command clawController;
-  
+  public static Command armController; 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -55,17 +56,17 @@ public class Robot extends TimedRobot {
     claw = new Claw(); 
     arm = new Arm(); 
     
-
     if (TALON_DRIVE_BASE) {
       driveBase = new DriveBaseTalonSRX();
     } else {
       driveBase = new DriveBaseSparkMax();
     }
+  
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser); 
 
-    clawController = new ClawController();
-
+    clawController = new ClawController(); 
+    armController  = new ArmController(); 
     
   
 

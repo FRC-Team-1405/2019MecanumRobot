@@ -23,7 +23,7 @@ public class Claw extends Subsystem {
   private static Servo leftClawServo = new Servo(1);  
   private static WPI_TalonSRX intakeWheelLeft = new WPI_TalonSRX(RobotMap.intakeWheelLeft); 
   private static WPI_TalonSRX intakeWheelRight = new WPI_TalonSRX(RobotMap.intakeWheelRight); 
-
+  //public static boolean isOpen; 
 public Claw(){ 
 
 }
@@ -34,22 +34,37 @@ public Claw(){
     setDefaultCommand(new ClawController());
   } 
   public void openClaw(){ 
-    rightClawServo.setAngle(90); 
-    leftClawServo.setAngle(90); 
+    rightClawServo.setAngle(180); 
+    leftClawServo.setAngle(180); 
+    //isOpen = true;  
   } 
 
   public void closeClaw(){ 
-    rightClawServo.setAngle(-10); 
-    leftClawServo.setAngle(-10);  
-  } 
+    rightClawServo.setAngle(145); 
+    leftClawServo.setAngle(145);  
+    //isOpen = false;
+  }  
+
+  public void neutral(){ 
+    rightClawServo.setAngle(180); 
+    leftClawServo.setAngle(180); 
+  }
 
   public void intakeGamePiece(){ 
-    intakeWheelLeft.set(1.0); 
+    intakeWheelRight.set(1.0); 
     intakeWheelLeft.set(1.0); 
   } 
 
   public void deployGamePiece(){ 
     intakeWheelLeft.set(-1.0); 
     intakeWheelRight.set(-1.0); 
+    
+  }
+
+  public void stopIntakes(){ 
+    intakeWheelRight.set(0); 
+    intakeWheelLeft.set(0); 
   }
 }
+
+
