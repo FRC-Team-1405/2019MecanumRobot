@@ -20,7 +20,6 @@ import frc.robot.commands.ClimbController;
 import frc.robot.subsystems.DriveBaseSparkMax; 
 import frc.robot.subsystems.Climber; 
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Claw;
 
 /**
@@ -41,6 +40,7 @@ public class Robot extends TimedRobot {
   
   public static Command clawController;
   public static Command armController; 
+  public static Command climbController;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
     m_oi = new OI(); 
     claw = new Claw(); 
     arm = new Arm(); 
+    climber = new Climber();
     
     if (TALON_DRIVE_BASE) {
       driveBase = new DriveBaseTalonSRX();
@@ -67,10 +68,7 @@ public class Robot extends TimedRobot {
 
     clawController = new ClawController(); 
     armController  = new ArmController(); 
-    
-  
-
-    
+    climbController = new ClimbController();
   }
 
   /**

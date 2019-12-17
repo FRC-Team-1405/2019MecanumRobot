@@ -27,7 +27,11 @@ public class ClimbController extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    
+    double percent = Robot.m_oi.readLegExtension();
+    System.out.println(percent);
+    if (percent >= 0.0 && percent <= 1.0) {
+      Robot.climber.setLegExtension(percent);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

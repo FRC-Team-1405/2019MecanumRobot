@@ -25,6 +25,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbController;   
 import frc.robot.lib.ExtendedTalon;
+import frc.robot.lib.Range;
 import frc.robot.commands.ArmController;
 /**
  * Add your docs here.
@@ -70,20 +71,6 @@ private ArmPosition[] positions = new ArmPosition[] {
                                     new ArmPosition("BackHigh", 0, 0, 0),
                                   };
 
-public class Range {
-  private int min;
-  private int max; 
-  public Range(int min, int max) {
-    this.min = min;
-    this.max = max;
-  }
-  public double toPercent(int position){
-    return (position-min)/(max-min);
-  }
-  public int toPosition(double percent){
-    return (int)((max-min)*percent+min);
-  } 
-}
 
 public Range wristRange;
 

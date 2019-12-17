@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.lib.Range;
 
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -39,6 +41,11 @@ public class Climber extends Subsystem {
   private static WPI_TalonSRX backLeftClimbTalon = new WPI_TalonSRX(RobotMap.backLeftClimbTalon); 
   private static WPI_TalonSRX backRightClimbTalon = new WPI_TalonSRX(RobotMap.backRightClimbTalon); 
 
+  private Range frontLeftRange;
+  private Range frontRightRange;
+  private Range backLeftRange;
+  private Range backRightRange;
+  
   void setFrontLeftPosition(double percentExtended){ 
       frontLeftClimbTalon.setSelectedSensorPosition(10);  
   } 
@@ -64,6 +71,8 @@ public class Climber extends Subsystem {
   
   
   public Climber() { 
+    TalonSRXConfiguration allConfigs = new TalonSRXConfiguration();
+
     configureTalon(frontLeftClimbTalon);
     frontLeftClimbTalon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 10); 
     frontLeftClimbTalon.configNeutralDeadband(0.001, 10);
@@ -72,6 +81,9 @@ public class Climber extends Subsystem {
     this.addChild(frontLeftClimbTalon); 
     LiveWindow.add(frontLeftClimbTalon); 
 
+    frontLeftClimbTalon.getAllConfigs(allConfigs, 0);
+    frontLeftRange = new Range(allConfigs.reverseSoftLimitThreshold, allConfigs.forwardSoftLimitThreshold);
+  
     configureTalon(frontRightClimbTalon);
     frontRightClimbTalon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 10);
     frontRightClimbTalon.configNeutralDeadband(0.001, 10);
@@ -80,6 +92,9 @@ public class Climber extends Subsystem {
     this.addChild(frontRightClimbTalon); 
     LiveWindow.add(frontRightClimbTalon);  
     
+    frontRightClimbTalon.getAllConfigs(allConfigs, 0);
+    frontRightRange = new Range(allConfigs.reverseSoftLimitThreshold, allConfigs.forwardSoftLimitThreshold);
+
     configureTalon(backLeftClimbTalon);
     backLeftClimbTalon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 10);
     backLeftClimbTalon.configNeutralDeadband(0.001, 10);
@@ -88,6 +103,9 @@ public class Climber extends Subsystem {
     this.addChild(backLeftClimbTalon); 
     LiveWindow.add(backLeftClimbTalon);  
 
+    backLeftClimbTalon.getAllConfigs(allConfigs, 0);
+    backLeftRange = new Range(allConfigs.reverseSoftLimitThreshold, allConfigs.forwardSoftLimitThreshold);
+
     configureTalon(backRightClimbTalon);
     backRightClimbTalon.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 10);
     backRightClimbTalon.configNeutralDeadband(0.001, 10);
@@ -95,6 +113,9 @@ public class Climber extends Subsystem {
     backRightClimbTalon.setName("Back Right Leg");
     this.addChild(backRightClimbTalon); 
     LiveWindow.add(backRightClimbTalon);  
+
+    backRightClimbTalon.getAllConfigs(allConfigs, 0);
+    backRightRange = new Range(allConfigs.reverseSoftLimitThreshold, allConfigs.forwardSoftLimitThreshold);
   }   
   
 
@@ -143,6 +164,20 @@ public class Climber extends Subsystem {
 
   public void extendRightLegsLevelThree(){ 
      
+  }
+
+  public void setLegExtension(double percent) {
+    System.out.printf(  "%3d %3d %3d %3d",
+                        frontLeftRange.toPosition(percent),
+                        backLeftRange.toPosition(percent),
+                        frontRightRange.toPosition(percent),
+                        backRightRange.toPosition(percent));
+/*
+    frontLeftClimbTalon.set(ControlMode.MotionMagic, frontLeftRange.toPosition(percent));
+    backLeftClimbTalon.set(ControlMode.MotionMagic, backLeftRange.toPosition(percent));
+    frontRightClimbTalon.set(ControlMode.MotionMagic, frontRightRange.toPosition(percent));
+    backRightClimbTalon.set(ControlMode.MotionMagic, backRightRange.toPosition(percent));
+*/
   }
 
   

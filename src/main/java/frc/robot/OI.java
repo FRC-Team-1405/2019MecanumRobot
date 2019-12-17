@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
   public OI() {
+    SmartDashboard.putNumber("Climb/Percent", 0);
     SmartDashboard.putBoolean("useFieldBased", useFieldBased);
     displayElevation();
     displayPosition();
@@ -138,6 +139,13 @@ public class OI {
   public boolean stopGamePieceRelease(){ 
     //return pilot.getBumperReleased(Hand.kLeft);
     return pilot.getRawButtonReleased(11); 
+  }
+
+  public double readLegExtension(){
+    if (pilot.getBackButton())
+      return SmartDashboard.getNumber("Climb/Percent", -1.0);
+    else    
+      return -1;
   }
 }  
   //// CREATING BUTTONS
